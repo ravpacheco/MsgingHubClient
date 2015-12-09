@@ -130,7 +130,7 @@ namespace Takenet.MsgingNet.Client
             {
                 var message = await _clientChannel.ReceiveMessageAsync(cancellationToken);
 
-                await listener.ReceiveMessageAsync(message);
+                listener.ReceiveMessageAsync(message);
 
                 Console.WriteLine("Message with id '{0}' received from '{1}': {2}", message.Id, message.From ?? _clientChannel.RemoteNode, message.Content);
             }
@@ -142,7 +142,7 @@ namespace Takenet.MsgingNet.Client
             {
                 var command = await _clientChannel.ReceiveCommandAsync(cancellationToken);
 
-                await listener.ReceiveCommandAsync(command);
+                listener.ReceiveCommandAsync(command);
 
                 Console.WriteLine("Command with id '{0}' received from '{1}': {2}", command.Id, command.From ?? _clientChannel.RemoteNode, command.Method);
             }
@@ -154,7 +154,7 @@ namespace Takenet.MsgingNet.Client
             {
                 var notification = await _clientChannel.ReceiveNotificationAsync(cancellationToken);
 
-                await listener.ReceiveNotificationAsync(notification);
+                listener.ReceiveNotificationAsync(notification);
 
                 Console.WriteLine("Notification with id '{0}' received from '{1}': {2}", notification.Id, notification.From ?? _clientChannel.RemoteNode, notification.Event);
             }
