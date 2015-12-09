@@ -60,9 +60,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HelperExtensions.cs" />
-    <Compile Include="IMsgingConnection.cs" />
+    <Compile Include="IMsgingHubClient.cs" />
     <Compile Include="IReceiver.cs" />
-    <Compile Include="MsgingConnection.cs" />
+    <Compile Include="MsgingHubClient.cs" />
     <Compile Include="MyReceiver.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

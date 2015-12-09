@@ -14,7 +14,7 @@ using Lime.Messaging.Contents;
 
 namespace Takenet.MsgingNet.Client
 {
-    class MsgingConnection : IMsgingConnection, IDisposable
+    class MsgingHubClient : IMsgingHubClient, IDisposable
     {
         public Node Node { get; set; }
         public string ApiKey { get; set; }
@@ -28,13 +28,13 @@ namespace Takenet.MsgingNet.Client
         Session _session;
         CancellationTokenSource _receiveTokenSource;
 
-        public MsgingConnection(string hostName = null)
+        public MsgingHubClient(string hostName = null)
         {
             HostName = hostName ?? "msging.net";
             PortNumber = 55321;
         }
 
-        public MsgingConnection UsingAccessKey(Node yourNode, string apiKey)
+        public MsgingHubClient UsingAccessKey(Node yourNode, string apiKey)
         {
             Node = yourNode;
             ApiKey = apiKey;
@@ -85,7 +85,7 @@ namespace Takenet.MsgingNet.Client
             }
         }
 
-        public async void SetReceiver(IReceiver receiverListener)
+        public async void StartReceiving(IReceiver receiverListener)
         {
             try
             {

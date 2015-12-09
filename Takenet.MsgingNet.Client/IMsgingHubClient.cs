@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Takenet.MsgingNet.Client
 {
-    interface IMsgingConnection
+    interface IMsgingHubClient
     {
         Task ConnectAsync();
 
@@ -16,6 +16,6 @@ namespace Takenet.MsgingNet.Client
         Task SendMessageAsync(Node to, Document genericDocument);
 
         //Set presence only here
-        void SetReceiver(IReceiver receiverListener);
+        void StartReceiving(IReceiver receiverListener);
     }
 }

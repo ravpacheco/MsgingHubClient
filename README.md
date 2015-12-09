@@ -8,7 +8,7 @@ Simple [Lime Protocol](http://github.com/takenet/lime-csharp/) client.
 All you need is:
 
 ```c#
-var client = new MsgingConnection()
+var client = new MsgingHubClient()
                    .UsingAccessKey("myaccount", "myAccessKey")
 
 //Is possible yet change all public properties using fluent-style construction
@@ -30,7 +30,7 @@ await client.SendMessageAsync("some@node.io", new Document {});
 To receive some data you must only implement the IReceiver interface and set on client
 
 ```c#
-await client.SetReceiver(new MyReceiver());
+await client.StartReceiving(new MyReceiver());
 ```
 
 ```c#
