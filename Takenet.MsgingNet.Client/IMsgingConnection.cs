@@ -11,11 +11,11 @@ namespace Takenet.MsgingNet.Client
     {
         Task ConnectAsync();
 
-        Task SendAsync(Node to, string text);
+        Task SendMessageAsync(Node to, string text);
 
-        Task SendAsync(Node to, Document genericDocument);
+        Task SendMessageAsync(Node to, Document genericDocument);
 
         //Set presence only here
-        void Receive(IReceiver receiverListener);
+        void SetReceiver(IReceiver receiverListener);
     }
 }

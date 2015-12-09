@@ -28,12 +28,17 @@ namespace Takenet.MsgingNet.Client
         Session _session;
         CancellationTokenSource _receiveTokenSource;
 
-        public MsgingConnection(Node yourNode, string apiKey)
+        public MsgingConnection(string hostName = null)
+        {
+            HostName = hostName ?? "msging.net";
+            PortNumber = 55321;
+        }
+
+        public MsgingConnection UsingAccessKey(Node yourNode, string apiKey)
         {
             Node = yourNode;
             ApiKey = apiKey;
-            HostName = "msging.net";
-            PortNumber = 55321;
+            return this;
         }
 
         public async Task ConnectAsync()
@@ -80,7 +85,7 @@ namespace Takenet.MsgingNet.Client
             }
         }
 
-        public async void Receive(IReceiver receiverListener)
+        public async void SetReceiver(IReceiver receiverListener)
         {
             try
             {
@@ -95,9 +100,9 @@ namespace Takenet.MsgingNet.Client
                     }
 
                     _receiveTokenSource = new CancellationTokenSource();
-                    var consumeMessagesTask = ConsumeMessagesAsync(receiverListener, _receiveTokenSource.Token).WithPassiveCancellation();
-                    //var consumeCommandsTask = ConsumeCommandsAsync(receiverListener, _receiverTokenSource.Token).WithPassiveCancellation();
-                    //var consumeNotificationsTask = ConsumeNotificationsAsync(receiverListener, _receiverTokenSource.Token).WithPassiveCancellation();
+                    var consumeMessagesTask = ConsumeMessageAsync(receiverListener, _receiveTokenSource.Token).WithPassiveCancellation();
+                    var consumeCommandsTask = ConsumeCommandAsync(receiverListener, _receiveTokenSource.Token).WithPassiveCancellation();
+                    var consumeNotificationsTask = ConsumeNotificationAsync(receiverListener, _receiveTokenSource.Token).WithPassiveCancellation();
 
                     Console.WriteLine("Session established. Id: {0} - Local node: {1} - Remote node: {2}", _session.Id, _session.To, _session.From);
                 }
@@ -119,7 +124,7 @@ namespace Takenet.MsgingNet.Client
             }
         }
 
-        async Task ConsumeMessagesAsync(IReceiver listener, CancellationToken cancellationToken)
+        async Task ConsumeMessageAsync(IReceiver listener, CancellationToken cancellationToken)
         {
             while (!cancellationToken.IsCancellationRequested)
             {
@@ -155,7 +160,7 @@ namespace Takenet.MsgingNet.Client
             }
         }
 
-        public async Task SendAsync(Node to, Document genericDocument)
+        public async Task SendMessageAsync(Node to, Document genericDocument)
         {
             if (_clientChannel.State == SessionState.Established)
             {
@@ -173,7 +178,7 @@ namespace Takenet.MsgingNet.Client
             }
         }
 
-        public async Task SendAsync(Node to, string text)
+        public async Task SendMessageAsync(Node to, string text)
         {
             if (_clientChannel.State == SessionState.Established)
             {
