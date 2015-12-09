@@ -13,7 +13,7 @@ var client = new MsgingHubClient()
 
 //Is possible yet change all public properties using fluent-style construction
 
-var executionTask = client.ConnectAsync();
+client.ConnectAsync();
 ```
 
 To send a text message, after starting the client, just call:

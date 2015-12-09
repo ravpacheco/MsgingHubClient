@@ -16,10 +16,10 @@ namespace Takenet.MsgingNet.Client
 {
     class MsgingHubClient : IMsgingHubClient, IDisposable
     {
-        public Node Node { get; set; }
-        public string ApiKey { get; set; }
-        public string HostName { get; set; }
-        public int PortNumber { get; set; }
+        public Node Node { get; private set; }
+        public string ApiKey { get; private set; }
+        public string HostName { get; private set; }
+        public int PortNumber { get; private set; }
 
         //Build can insert more props here
 
